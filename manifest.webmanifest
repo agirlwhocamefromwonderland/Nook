@@ -1,0 +1,21 @@
+{
+ "id": "./",
+ "name": "Nook",
+ "short_name": "Nook",
+ "description": "Garden, Gilded Reader and Magpie’s Nest in one place.",
+ "start_url": "./",
+ "scope": "./",
+ "display": "standalone",
+ "background_color": "#312532",
+ "theme_color": "#312532",
+ "icons": [
+  {"src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
+  {"src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"},
+  {"src": "icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
+ ],
+ "share_target": {
+  "action": "./",
+  "method": "GET",
+  "params": {"title": "title", "text": "text", "url": "url"}
+ }
+}

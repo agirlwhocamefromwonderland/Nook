@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Magpie’s Nest</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="theme-color" content="#FCF8EE" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#312532" media="(prefers-color-scheme: dark)">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Magpie’s Nest">
+<style>
+:root{--bg:#FCF8EE;--pn:#fffdf7;--tx:#000;--mu:#5d4a68;--hd:#4A256B;--hv:#663A7A;--bd:#d9cfe0;--ac:#4A256B;--acx:#FCF8EE;--er:#b3261e;color-scheme:light;
+ box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#312532;--pn:#3b2d3c;--tx:#E0D6C9;--mu:#b3a699;--hd:#E3C27B;--hv:#FFECC6;--bd:#5A5056;--ac:#E3C27B;--acx:#312532;--er:#ff9c8f;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#312532;--pn:#3b2d3c;--tx:#E0D6C9;--mu:#b3a699;--hd:#E3C27B;--hv:#FFECC6;--bd:#5A5056;--ac:#E3C27B;--acx:#312532;--er:#ff9c8f;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;font:16px/1.45 system-ui,sans-serif;background:var(--bg);color:var(--tx);padding-bottom:84px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:10}
+header{padding:14px 16px 6px;max-width:640px;margin:0 auto}
+h1{margin:0;font:700 22px Georgia,serif;color:var(--hd)}h1 small{display:block;font:13px system-ui;color:var(--mu);font-weight:400}
+h2,h3{color:var(--hd);margin:0}
+main{max-width:640px;margin:0 auto;padding:8px 16px}
+.chips{display:flex;gap:6px;overflow-x:auto;padding:6px 0 10px;scrollbar-width:none}
+.chip{flex:none;padding:6px 12px;border:1px solid var(--bd);border-radius:99px;background:none;color:var(--tx);font:14px system-ui;cursor:pointer}
+.chip.on{background:var(--ac);color:var(--acx);border-color:var(--ac)}
+button,select,input,textarea{font:inherit;color:var(--tx)}
+button.b{padding:12px 16px;border-radius:12px;border:1px solid var(--bd);background:var(--pn);cursor:pointer;min-height:44px}
+button.b:hover,.chip:hover{border-color:var(--hv);color:var(--hv)}
+.chip.on:hover{color:var(--acx);background:var(--hv)}
+button.p,a.p{display:inline-flex;align-items:center;justify-content:center;padding:12px 18px;border-radius:12px;border:1px solid var(--ac);background:var(--ac);color:var(--acx);text-decoration:none;font-weight:600;cursor:pointer;min-height:44px}
+button.p:hover,a.p:hover{background:var(--hv);border-color:var(--hv);color:var(--acx)}
+.card{background:var(--pn);border:1px solid var(--bd);border-radius:14px;padding:14px;margin-bottom:10px}
+.card:hover{border-color:var(--hv)}.card h3{font-size:17px}.m{font-size:13px;color:var(--mu)}.note{font-size:14px;margin:6px 0 0}
+.row{display:flex;gap:8px;align-items:center;margin-top:10px;flex-wrap:wrap}.row>.grow{flex:1}
+.tag{font-size:11px;text-transform:uppercase;letter-spacing:.05em;border:1px solid var(--bd);color:var(--mu);border-radius:99px;padding:1px 8px;margin-right:6px}
+.late{color:var(--er)}
+nav{position:fixed;left:0;right:0;bottom:0;display:flex;background:var(--pn);border-top:1px solid var(--bd);padding-bottom:env(safe-area-inset-bottom,0px);z-index:5}
+nav button{flex:1;padding:10px 0 8px;background:none;border:0;color:var(--mu);font-size:12px;cursor:pointer}
+nav button span{display:block;font-size:20px}nav button.on{color:var(--hd);font-weight:700}
+label.f{display:block;margin:12px 0}label.f>span{display:block;font-size:13px;color:var(--mu);margin-bottom:4px}
+input[type=text],select,textarea{width:100%;padding:11px;border:1px solid var(--bd);border-radius:10px;background:var(--bg)}
+input[type=checkbox]{width:20px;height:20px;accent-color:var(--ac)}
+.ck{display:flex;gap:8px;align-items:center;padding:5px 0;color:var(--tx)}
+.ov{position:fixed;inset:0;background:rgba(0,0,0,.55);display:none;z-index:20;padding:env(safe-area-inset-top,0px) 0 0}
+.ov.on{display:flex;align-items:flex-end;justify-content:center}
+.ov>div{background:var(--pn);width:100%;max-width:640px;max-height:92%;overflow:auto;border-radius:18px 18px 0 0;padding:18px 16px calc(18px + env(safe-area-inset-bottom,0px))}
+#rn{align-items:center}#rn>div{border-radius:18px;margin:16px;text-align:center;padding:26px 18px}
+#toast{position:fixed;left:50%;bottom:96px;transform:translateX(-50%);background:var(--hd);color:var(--acx);padding:9px 16px;border-radius:99px;font-size:14px;display:none;z-index:30}
+.seg{display:flex;border:1px solid var(--bd);border-radius:12px;overflow:hidden}.seg button{flex:1;padding:10px;border:0;background:none;cursor:pointer}.seg button.on{background:var(--ac);color:var(--acx)}
+details{margin:18px 0;border-top:1px solid var(--bd);padding-top:10px}summary{cursor:pointer;color:var(--hd);font-weight:600}
+.empty{text-align:center;color:var(--mu);padding:36px 12px}
+</style></head><body>
+<header><h1>Magpie’s Nest<small>a hoard of shiny places to check on</small></h1></header>
+<main id="mn"></main>
+<nav id="nv"></nav>
+<div class="ov" id="sh"><div id="sb"></div></div>
+<div class="ov" id="rn"><div id="rb"></div></div>
+<div id="toast"></div>
+<script>
+const $=s=>document.querySelector(s);
+const el=(t,c,x)=>{const e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e};
+const LS=(k,d)=>{try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}};
+const PL={x:"X",yt:"YouTube",tumblr:"Tumblr",ig:"Instagram",tt:"TikTok",reddit:"Reddit",bsky:"Bluesky",web:"Web"};
+const FQ=[[1,"Daily"],[3,"Every 3 days"],[7,"Weekly"],[30,"Monthly"],[0,"Whenever (never ‘due’)"]];
+let S=LS("nest",{sources:[],saved:[],cats:["Friends","Artists","News","Fun"]});
+let tab="due",fc="all",showAll=false,mode="source",ref=null,syncT=null;
+const uid=()=>Math.random().toString(36).slice(2,8)+Date.now().toString(36);
+function toast(t){const e=$("#toast");e.textContent=t;e.style.display="block";clearTimeout(e._t);e._t=setTimeout(()=>e.style.display="none",2200)}
+
+/* storage: device copy always, account copy when available */
+function persist(){try{localStorage.setItem("nest",JSON.stringify(S))}catch{}
+ if(!ref)return;clearTimeout(syncT);syncT=setTimeout(()=>ref.set(JSON.parse(JSON.stringify(S))).catch(()=>toast("Sync failed — kept on this device")),500)}
+async function initSync(){try{if(!window.claude||!claude.use)return;
+ const [u,d]=await Promise.all([claude.use("user"),claude.use("db")]);if(!u||!d)return;
+ const id=await u.id();if(!id)return;ref=d.collection("data/users/"+id).doc("nest");
+ const s=await ref.get();if(s.exists){S={sources:[],saved:[],cats:[],...s.data()};try{localStorage.setItem("nest",JSON.stringify(S))}catch{}render()}
+ else if(S.sources.length||S.saved.length)persist()}catch{}}
+
+/* url parsing */
+function parse(raw){raw=(raw||"").trim();let u;
+ if(/^@\w+$/.test(raw))u=new URL("https://x.com/"+raw.slice(1));
+ else{try{u=new URL(/^https?:\/\//i.test(raw)?raw:"https://"+raw);if(!u.hostname.includes("."))return null}catch{return null}}
+ const h=u.hostname.replace(/^(www|m|mobile|old)\./,""),sg=u.pathname.split("/").filter(Boolean);let p="web",name=h;
+ if(h==="twitter.com"||h==="x.com"){p="x";u.hostname="x.com";name=sg[0]?"@"+sg[0]:"X"}
+ else if(/(^|\.)youtube\.com$|^youtu\.be$/.test(h)){p="yt";name=sg.find(s=>s[0]==="@")||sg[1]||"YouTube"}
+ else if(h.endsWith("tumblr.com")){p="tumblr";name=h==="tumblr.com"?(sg[0]||"Tumblr"):h.split(".")[0]}
+ else if(h==="instagram.com"){p="ig";name=sg[0]?"@"+sg[0]:"Instagram"}
+ else if(h==="tiktok.com"){p="tt";name=sg[0]||"TikTok"}
+ else if(h==="reddit.com"){p="reddit";name=sg[1]?sg[0]+"/"+sg[1]:"Reddit"}
+ else if(h==="bsky.app"){p="bsky";name=sg[1]||"Bluesky"}
+ return{url:u.href,p,name}}
+const ago=ts=>{if(!ts)return"never checked";const d=Math.floor((Date.now()-ts)/864e5);return d<1?"checked today":d===1?"checked yesterday":`checked ${d} days ago`};
+const ratio=s=>!s.freq?-1:!s.checked?99:(Date.now()-s.checked)/864e5/s.freq;
+const neglect=s=>s.checked?(Date.now()-s.checked):Infinity;
+const catOf=s=>s.cat||"Uncategorized";
+function addCat(c){c=(c||"").trim();if(c&&!S.cats.includes(c))S.cats.push(c);return c}
+
+/* forms */
+function form(fields){const g={},node=el("div");
+ fields.forEach(f=>{const w=el("label","f");if(f.t!=="check")w.append(el("span","",f.l));let i;
+  if(f.t==="select"){i=el("select");f.o.forEach(([v,l])=>{const o=el("option","",l);o.value=v;i.append(o)});i.value=f.v;g[f.k]=()=>i.value}
+  else if(f.t==="area"){i=el("textarea");i.rows=3;i.value=f.v||"";g[f.k]=()=>i.value}
+  else if(f.t==="multi"){i=el("div");S.cats.forEach(c=>{const l=el("div","ck"),cb=el("input");cb.type="checkbox";cb.value=c;cb.checked=(f.v||[]).includes(c);l.append(cb,c);i.append(l)});g[f.k]=()=>[...i.querySelectorAll("input:checked")].map(x=>x.value)}
+  else if(f.t==="check"){w.className="ck";i=el("input");i.type="checkbox";i.checked=!!f.v;w.append(i,f.l);g[f.k]=()=>i.checked;node.append(w);return}
+  else{i=el("input");i.type="text";i.value=f.v||"";if(f.ph)i.placeholder=f.ph;g[f.k]=()=>i.value;if(f.on)i.oninput=()=>f.on(i.value);if(f.ref)f.ref(i)}
+  w.append(i);node.append(w)});
+ return{node,get:()=>Object.fromEntries(Object.entries(g).map(([k,v])=>[k,v()]))}}
+const catSel=v=>({k:"cat",l:"Category",t:"select",v:v||S.cats[0]||"",o:[...S.cats.map(c=>[c,c]),["","Uncategorized"]]});
+function sheet(title,fields,onSave,onDel){
+ const b=$("#sb");b.replaceChildren(el("h2","",title));const fm=form(fields);b.append(fm.node);
+ const r=el("div","row"),s=el("button","p grow","Save"),c=el("button","b","Cancel");
+ s.onclick=()=>{onSave(fm.get());persist();$("#sh").classList.remove("on");render()};c.onclick=()=>$("#sh").classList.remove("on");r.append(s,c);
+ if(onDel){const d=el("button","b","Delete");d.style.color="var(--er)";d.onclick=()=>{if(confirm("Delete this?")){onDel();persist();$("#sh").classList.remove("on");render()}};r.append(d)}
+ b.append(r);$("#sh").classList.add("on")}
+$("#sh").onclick=e=>{if(e.target.id==="sh")e.currentTarget.classList.remove("on")};
+
+function editSource(s){sheet("Edit source",[{k:"name",l:"Name",v:s.name},{k:"url",l:"Link",v:s.url},catSel(s.cat),{k:"newcat",l:"…or a new category",ph:"optional"},
+ {k:"freq",l:"Check how often",t:"select",v:String(s.freq),o:FQ.map(([v,l])=>[String(v),l])},{k:"note",l:"Note",t:"area",v:s.note},{k:"pin",l:"Pin to top",t:"check",v:s.pin}],
+ v=>{const p=parse(v.url);Object.assign(s,{name:v.name.trim()||s.name,url:p?p.url:s.url,p:p?p.p:s.p,cat:addCat(v.newcat)||v.cat,freq:+v.freq,note:v.note.trim(),pin:v.pin})},
+ ()=>{S.sources=S.sources.filter(x=>x!==s)})}
+function editSaved(s){sheet("Edit saved post",[{k:"name",l:"Title",v:s.name},{k:"url",l:"Link",v:s.url},{k:"cats",l:"Categories",t:"multi",v:s.cats},{k:"newcat",l:"…or a new category",ph:"optional"},{k:"note",l:"Note",t:"area",v:s.note}],
+ v=>{const nc=addCat(v.newcat);Object.assign(s,{name:v.name.trim()||s.name,url:v.url.trim()||s.url,cats:[...new Set([...v.cats,...(nc?[nc]:[])])],note:v.note.trim()})},
+ ()=>{S.saved=S.saved.filter(x=>x!==s)})}
+
+/* cards */
+const openA=(s,label,cb)=>{const a=el("a","p grow",label||"Open ↗");a.href=s.url;a.target="_blank";a.rel="noopener noreferrer";a.onclick=()=>{s.checked=Date.now();persist();if(cb)cb();else setTimeout(render,300)};return a};
+function srcCard(s,cb){const c=el("div","card"),late=ratio(s)>=1;
+ const t=el("div","m");t.append(el("span","tag",PL[s.p]||"Web"),el("span","","· "+catOf(s)+(s.pin?" · 📌":"")));
+ c.append(t,el("h3","",s.name));const m=el("div","m "+(late?"late":""),ago(s.checked)+(s.freq?` · wanted ${FQ.find(f=>f[0]===s.freq)[1].toLowerCase()}`:""));c.append(m);
+ if(s.note)c.append(el("p","note",s.note));
+ const r=el("div","row"),e=el("button","b","Edit");e.onclick=()=>editSource(s);r.append(openA(s,"Open ↗",cb),e);c.append(r);return c}
+function chips(list,cur,set){const w=el("div","chips");list.forEach(([v,l])=>{const b=el("button","chip"+(cur===v?" on":""),l);b.onclick=()=>{set(v);render()};w.append(b)});return w}
+const catChips=()=>chips([["all","All"],...S.cats.map(c=>[c,c]),["","Uncategorized"]],fc,v=>fc=v);
+const inCat=s=>fc==="all"||catOf(s)===(fc||"Uncategorized");
+
+/* tabs */
+function viewDue(m){
+ const list=S.sources.filter(inCat).filter(s=>showAll?s.freq>=0:ratio(s)>=1)
+  .sort((a,b)=>(b.pin?1:0)-(a.pin?1:0)||(showAll?neglect(b)-neglect(a):ratio(b)-ratio(a)));
+ m.append(catChips());
+ const r=el("div","row");r.style.marginBottom="10px";const rb=el("button","p grow","▶ Start a round ("+list.length+")");rb.onclick=()=>startRound(list);
+ const tg=el("button","b",showAll?"Due only":"Show all");tg.onclick=()=>{showAll=!showAll;render()};r.append(rb,tg);if(list.length)m.append(r);else m.append(tg);
+ if(!list.length)m.append(el("div","empty",S.sources.length?"Nothing is due. The nest is tidy ✨":"Your nest is empty. Add a source from the + tab."));
+ list.forEach(s=>m.append(srcCard(s)))}
+function viewSources(m){
+ const q=el("input");q.type="text";q.placeholder="Search sources…";q.value=window._q||"";q.oninput=()=>{window._q=q.value;render(1)};m.append(q,catChips());
+ const list=S.sources.filter(inCat).filter(s=>!window._q||(s.name+s.url+(s.note||"")).toLowerCase().includes(window._q.toLowerCase())).sort((a,b)=>a.name.localeCompare(b.name));
+ if(!list.length)m.append(el("div","empty","No sources here yet."));list.forEach(s=>m.append(srcCard(s)));
+ if(window._q)setTimeout(()=>{q.focus();q.setSelectionRange(q.value.length,q.value.length)})}
+function viewSaved(m){
+ m.append(catChips());const list=S.saved.filter(s=>fc==="all"||s.cats.includes(fc)||(fc===""&&!s.cats.length)).sort((a,b)=>b.added-a.added);
+ if(!list.length)m.append(el("div","empty","No saved posts here. Add one from the + tab."));
+ list.forEach(s=>{const c=el("div","card");const t=el("div","m");t.append(el("span","tag",PL[s.p]||"Web"),el("span","",s.cats.join(", ")||"Uncategorized"));
+  c.append(t,el("h3","",s.name));if(s.note)c.append(el("p","note",s.note));
+  const r=el("div","row"),a=el("a","p grow","Open ↗");a.href=s.url;a.target="_blank";a.rel="noopener noreferrer";const e=el("button","b","Edit");e.onclick=()=>editSaved(s);r.append(a,e);c.append(r);m.append(c)})}
+
+function viewAdd(m){
+ const sg=el("div","seg");[["source","Source to check"],["post","Saved post"]].forEach(([v,l])=>{const b=el("button",mode===v?"on":"",l);b.onclick=()=>{mode=v;render()};sg.append(b)});m.append(sg);
+ let urlI,det=el("div","m");det.style.minHeight="20px";
+ const nm=mode==="source"?"Name (optional)":"Title (optional)";
+ const fm=form([{k:"url",l:"Link or @handle",ph:"paste here",on:v=>{const p=parse(v);det.textContent=p?`Looks like ${PL[p.p]} · ${p.name}`:""},ref:i=>urlI=i},{k:"name",l:nm},
+  ...(mode==="source"?[catSel(),{k:"newcat",l:"…or a new category",ph:"optional"},{k:"freq",l:"Check how often",t:"select",v:"7",o:FQ.map(([v,l])=>[String(v),l])}]:[{k:"cats",l:"Categories",t:"multi",v:[]},{k:"newcat",l:"…or a new category",ph:"optional"}]),{k:"note",l:"Note (optional)",t:"area"}]);
+ const pb=el("button","b","📋 Paste from clipboard");pb.onclick=async()=>{try{const t=await navigator.clipboard.readText();urlI.value=t.trim();urlI.dispatchEvent(new Event("input"))}catch{toast("Paste blocked — long-press the box instead")}};
+ const go=el("button","p","Add to the nest");go.style.width="100%";go.style.marginTop="8px";
+ go.onclick=()=>{const v=fm.get(),p=parse(v.url);if(!p)return toast("That doesn’t look like a link");const nc=addCat(v.newcat);
+  if(mode==="source"){if(S.sources.some(s=>s.url===p.url))return toast("Already in your nest");S.sources.push({id:uid(),url:p.url,p:p.p,name:v.name.trim()||p.name,cat:nc||v.cat,freq:+v.freq,checked:0,note:v.note.trim(),pin:false,added:Date.now()})}
+  else S.saved.push({id:uid(),url:p.url,p:p.p,name:v.name.trim()||p.name,cats:[...new Set([...v.cats,...(nc?[nc]:[])])],note:v.note.trim(),added:Date.now()});
+  persist();toast("Tucked into the nest 🪺");render()};
+ m.append(pb,det,fm.node,go);
+ const dt=el("details");dt.append(el("summary","","Data, import & export"));
+ const ta=el("textarea");ta.rows=4;ta.placeholder="Paste a list of links, OPML, or a JSON backup…";const fi=el("input");fi.type="file";fi.accept=".opml,.xml,.json,.txt";fi.style.margin="8px 0";
+ fi.onchange=async()=>{if(fi.files[0])ta.value=await fi.files[0].text()};
+ const im=el("button","b","Import");im.onclick=()=>{toast(`Imported ${doImport(ta.value)} new item(s)`);ta.value="";render()};
+ const row=el("div","row");[["Export OPML","feeds.opml",opml],["Export backup (JSON)","magpie-backup.json",()=>JSON.stringify(S)],["Export link list","links.txt",()=>S.sources.map(s=>s.url).join("\n")]].forEach(([l,f,fn])=>{const b=el("button","b",l);b.onclick=()=>save(f,fn());row.append(b)});
+ dt.append(ta,fi,im,row);
+ dt.append(el("h3","","Categories"));S.cats.forEach(c=>{const r=el("div","row"),n=el("span","grow",c),d=el("button","b","Remove");
+  d.onclick=()=>{if(!confirm(`Remove “${c}”? Its sources become Uncategorized.`))return;S.cats=S.cats.filter(x=>x!==c);S.sources.forEach(s=>{if(s.cat===c)s.cat=""});S.saved.forEach(s=>s.cats=s.cats.filter(x=>x!==c));persist();render()};r.append(n,d);dt.append(r)});
+ m.append(dt)}
+
+/* import / export */
+const esc=t=>String(t).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/"/g,"&quot;");
+function opml(){const g={};S.sources.forEach(s=>(g[catOf(s)]=g[catOf(s)]||[]).push(s));
+ return`<?xml version="1.0" encoding="UTF-8"?>\n<opml version="2.0"><head><title>Magpie’s Nest</title></head><body>\n`+Object.entries(g).map(([c,l])=>`<outline text="${esc(c)}">\n`+l.map(s=>`  <outline type="link" text="${esc(s.name)}" title="${esc(s.name)}" htmlUrl="${esc(s.url)}" xmlUrl="${esc(s.url)}"/>`).join("\n")+"\n</outline>").join("\n")+"\n</body></opml>"}
+async function save(name,data){
+ try{if(window.claude&&claude.use){const d=await claude.use("downloads");if(d){await d.save({filename:name,data});return}}}catch(e){if(e&&e.code==="cancelled")return}
+ try{const a=el("a");a.href=URL.createObjectURL(new Blob([data]));a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),1500)}
+ catch{try{await navigator.clipboard.writeText(data);toast("Copied to clipboard instead")}catch{toast("Couldn’t save that here")}}}
+function doImport(t){t=t.trim();let n=0;const have=new Set(S.sources.map(s=>s.url));
+ const add=(url,name,cat)=>{const p=parse(url);if(!p||have.has(p.url))return;have.add(p.url);if(cat)addCat(cat);S.sources.push({id:uid(),url:p.url,p:p.p,name:name||p.name,cat:cat||"",freq:7,checked:0,note:"",pin:false,added:Date.now()});n++};
+ if(t[0]==="{"){try{const j=JSON.parse(t);(j.cats||[]).forEach(addCat);(j.sources||[]).forEach(s=>{if(!have.has(s.url)){have.add(s.url);S.sources.push({...s,id:uid()});n++}});
+  (j.saved||[]).forEach(s=>{if(!S.saved.some(x=>x.url===s.url)){S.saved.push({...s,id:uid()});n++}})}catch{toast("That JSON didn’t parse")}}
+ else if(/<outline/i.test(t)){const d=new DOMParser().parseFromString(t,"text/xml");
+  d.querySelectorAll("outline").forEach(o=>{const at=n=>{const a=[...o.attributes].find(x=>x.name.toLowerCase()===n);return a?a.value:""};const u=at("htmlurl")||at("xmlurl")||at("url");
+   if(!u)return;const par=o.parentElement;add(u,at("title")||at("text"),par&&par.localName==="outline"?par.getAttribute("text"):"")})}
+ else t.split(/\s+/).filter(Boolean).forEach(u=>add(u));
+ persist();return n}
+
+/* rounds */
+function startRound(list){if(!list.length)return;let i=0;const ids=list.map(s=>s.id),o=$("#rn"),b=$("#rb");
+ const step=()=>{b.replaceChildren();if(i>=ids.length){b.append(el("h2","","Round complete 🪶"),el("p","m","Every shiny thing visited."));const d=el("button","p","Done");d.style.marginTop="14px";d.onclick=()=>{o.classList.remove("on");render()};b.append(d);return}
+  const s=S.sources.find(x=>x.id===ids[i]);if(!s){i++;return step()}
+  b.append(el("div","m",`${i+1} of ${ids.length}`),el("h2","",s.name),el("div","m",(PL[s.p]||"Web")+" · "+ago(s.checked)));if(s.note)b.append(el("p","note",s.note));
+  const r=el("div","row");r.style.justifyContent="center";const nx=el("button","b","Skip");nx.onclick=()=>{i++;step()};
+  r.append(openA(s,"Open ↗",()=>{i++;setTimeout(step,250)}),nx);const q=el("button","b","Stop");q.onclick=()=>{o.classList.remove("on");render()};r.append(q);b.append(r)};
+ step();o.classList.add("on")}
+
+/* shell */
+function render(keep){const m=$("#mn");m.replaceChildren();({due:viewDue,sources:viewSources,saved:viewSaved,add:viewAdd})[tab](m);
+ const nv=$("#nv");nv.replaceChildren();[["due","🪶","Due"],["sources","🪺","Sources"],["saved","⭐","Saved"],["add","＋","Add"]].forEach(([k,i,l])=>{const b=el("button",tab===k?"on":"");b.append(el("span","",i),l);b.onclick=()=>{tab=k;fc="all";scrollTo(0,0);render()};nv.append(b)})}
+render();initSync();if("serviceWorker"in navigator&&/^https?:/.test(location.protocol))navigator.serviceWorker.register("sw.js").catch(()=>{});
+</script></body></html>

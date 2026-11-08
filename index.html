@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Nook</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="theme-color" content="#312532">
+<style>
+:root{--bg:#FCF8EE;--pn:#fffdf7;--tx:#2a2230;--mu:#5d4a68;--hd:#4A256B;--bd:#d9cfe0;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root{--bg:#312532;--pn:#3b2d3c;--tx:#E0D6C9;--mu:#b3a699;--hd:#E3C27B;--bd:#5A5056;color-scheme:dark}}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--tx)}
+body{font:16px/1.5 system-ui,sans-serif;max-width:520px;margin:0 auto;padding:28px 18px 50px}
+h1{font:700 26px Georgia,serif;color:var(--hd);margin:0 0 4px}
+p.s{color:var(--mu);margin:0 0 24px}
+a.c{display:flex;gap:14px;align-items:center;background:var(--pn);border:1px solid var(--bd);border-radius:16px;padding:14px;margin-bottom:12px;text-decoration:none;color:inherit}
+a.c:hover,a.c:focus{border-color:var(--hd)}
+a.c img{width:56px;height:56px;border-radius:12px;flex:none}
+a.c b{display:block;font:700 18px Georgia,serif;color:var(--hd)}
+a.c span{color:var(--mu);font-size:14px}
+</style>
+</head>
+<body>
+<h1>Nook</h1>
+<p class="s">your quiet little places, all in one app.</p>
+<a class="c" href="garden.html"><img src="garden-icon.png" alt=""><div><b>Garden</b><span>quotes, links and ideas, planted and tended</span></div></a>
+<a class="c" href="reader.html"><img src="reader-icon.png" alt=""><div><b>Gilded Reader</b><span>read your EPUB books, keep your notes</span></div></a>
+<a class="c" href="nest.html"><img src="nest-icon.png" alt=""><div><b>Magpie’s Nest</b><span>a hoard of shiny places to check on</span></div></a>
+<script>
+try{var q=location.search;if(/[?&](title|text|url)=/.test(q)){location.replace("garden.html"+q)}}catch(e){}
+if("serviceWorker" in navigator)window.addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})});
+</script>
+</body>
+</html>
